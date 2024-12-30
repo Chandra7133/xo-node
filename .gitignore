@@ -46,4 +46,4 @@ coverage/
 
 # Git configuration
 .gitconfig
-package.json
+package-lock.json

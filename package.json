@@ -1,0 +1,16 @@
+{
+  "name": "xo-node",
+  "version": "1.0.0",
+  "description": "xo game node",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "test"
+  },
+  "author": "chandra",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
