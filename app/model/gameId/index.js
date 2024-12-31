@@ -1,3 +1,4 @@
+
 exports.generate = async (reqParams) => {
   try {
     const { body, ip } = reqParams;
@@ -30,7 +31,7 @@ exports.generate = async (reqParams) => {
         .map(() => Array(3).fill(0)),
     };
 
-    console.log("Game data updated:", GAME_DATA);
+    // console.log("Game data updated:", GAME_DATA);
     return { status: true, msg: "Game is Created!!!" };
   } catch (error) {
     console.error("Error creating game:", error.message);

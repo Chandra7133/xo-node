@@ -4,8 +4,7 @@ const gameplay = require("./gameplay")
 routes.use("/gameId", gameId)
 routes.use("/gameplay",gameplay);
 routes.get('/', (req, res) => {
-//  const ip = req.ip;
-//  console.log('User IP address: ', ip);
+    console.log("test")
  res.status(200).json({ "message": "connected","status":true })
 });
 
