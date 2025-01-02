@@ -11,7 +11,7 @@ const app = express();
 const server = http.createServer(app);
 
 const corsOptions = {
-    origin: "http://localhost:4200", 
+    origin: true, 
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
     credentials: true,
@@ -25,7 +25,7 @@ const io = socketIo(server, { cors: corsOptions });
 
 // Handle socket connections
 handleSocketConnection(io);
-
+module.exports = io;
 server.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 }).on('error', (err) => {

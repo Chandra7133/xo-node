@@ -1,10 +1,44 @@
+
 exports.handleSocketConnection = (io) => {
     console.log("Socket.IO server is ready!");
-
     io.on("connection", (socket) => {
-        console.log('New WebSocket client connected:', socket.id);
+        const playerIp = socket.handshake.address.split(":").pop();
+        const id = socket.id;
+        DATA[playerIp] = id;
         io.emit("connected",{"status":true})
-        // // Handle client joining a room
+
+        //addPlayer
+        socket.on('add',(data)=>{
+            let gameId = data['gameId'];
+            let count = GAME_ID[gameId].length;
+            let playerIp = GAME_ID[gameId][0];
+            let clientId = DATA[playerIp];
+            io.to(clientId).emit('count',{count : count});
+        })
+
+        //startGame
+        socket.on('start',(data)=>{
+            let gameId = data['gameId'];
+            let playerIp = GAME_ID[gameId][1];
+            let clientId = DATA[playerIp];
+            io.to(clientId).emit('started',{"start" : true});
+        })
+
+        //setMove
+        socket.on('move',(data)=>{
+            let gameId = data['gameId'];
+            let hostIp = socket.handshake.address.split(":").pop();
+            let playerArr = GAME_ID[gameId].filter((ip)=> ip != hostIp);
+            console.log(playerArr);
+            playerArr.forEach(ip => {
+                io.to(DATA[ip]).emit('moved',{'status':true});
+            });
+        })
+    });
+};
+
+
+// // Handle client joining a room
         // socket.on('joinRoom', (roomName) => {
         //     console.log(`User ${socket.id} joining room: ${roomName}`);
         //     socket.join(roomName);
@@ -26,5 +60,3 @@ exports.handleSocketConnection = (io) => {
         // socket.on('disconnect', () => {
         //     console.log(`User ${socket.id} disconnected`);
         // });
-    });
-};

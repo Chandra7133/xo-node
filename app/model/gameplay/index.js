@@ -1,7 +1,7 @@
 exports.getData = async (reqParams) => {
     try {
       const { gameId } = reqParams;
-  
+      // console.log(GAME_ID,!global.GAME_ID , !GAME_ID[gameId] )
       if (!global.GAME_ID || !GAME_ID[gameId] || !GAME_ID[gameId][0]) {
         return { status: false, msg: 'Game not found or restart the game' };
       }
@@ -30,7 +30,7 @@ exports.getData = async (reqParams) => {
   
   exports.sendData = async (reqParams) => {
     try {
-      const { gameId, gameplay } = reqParams;
+      const { gameId, gameplay,move } = reqParams;
   
       if (!global.GAME_ID || !GAME_ID[gameId] || !GAME_ID[gameId][0]) {
         return { status: false, msg: 'Invalid game ID' };
@@ -40,8 +40,13 @@ exports.getData = async (reqParams) => {
       if (!GAME_DATA[playerIp]) {
         return { status: false, msg: 'Game data unavailable' };
       }
-  
+      
+      if(GAME_DATA[playerIp]['move'] == move){
+        return { status:false , msg : "other player didn't make the move"}
+      }
+
       GAME_DATA[playerIp]['gameplay'] = gameplay;
+      GAME_DATA[playerIp]['move'] = move;
       return { status: true, data: 2174 };
     } catch (error) {
       console.error('Error in sendData:', error.message);

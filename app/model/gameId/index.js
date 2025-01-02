@@ -1,3 +1,5 @@
+const { io } = require('./../../../app');
+
 
 exports.generate = async (reqParams) => {
   try {
@@ -26,6 +28,7 @@ exports.generate = async (reqParams) => {
 
     GAME_DATA[playerIp] = {
       gameId: gameId,
+      move : 'X',
       gameplay: Array(3)
         .fill(null)
         .map(() => Array(3).fill(0)),
