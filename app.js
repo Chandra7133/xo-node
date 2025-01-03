@@ -25,7 +25,7 @@ const io = socketIo(server, { cors: corsOptions });
 
 // Handle socket connections
 handleSocketConnection(io);
-module.exports = io;
+
 server.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 }).on('error', (err) => {

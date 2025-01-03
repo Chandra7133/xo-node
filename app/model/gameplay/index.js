@@ -1,7 +1,6 @@
 exports.getData = async (reqParams) => {
     try {
       const { gameId } = reqParams;
-      // console.log(GAME_ID,!global.GAME_ID , !GAME_ID[gameId] )
       if (!global.GAME_ID || !GAME_ID[gameId] || !GAME_ID[gameId][0]) {
         return { status: false, msg: 'Game not found or restart the game' };
       }
@@ -16,8 +15,8 @@ exports.getData = async (reqParams) => {
   
       if (gameStatus !== GAME_STATUS.ONGOING) {
         // Cleanup data after game ends
-        delete GAME_DATA[playerIp];
-        delete GAME_ID[gameId];
+        // delete GAME_DATA[playerIp];
+        // delete GAME_ID[gameId];
         return { status: false, msg: gameStatus };
       }
   
